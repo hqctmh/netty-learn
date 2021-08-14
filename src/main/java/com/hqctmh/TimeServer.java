@@ -25,7 +25,7 @@ public class TimeServer {
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 1024)
-                    .childHandler(new ChildChannelHandler());
+                    .childHandler(new ChildChannelHandler()).childOption(ChannelOption.SO_KEEPALIVE,true);
             ChannelFuture f = b.bind(point).sync();
             f.channel().closeFuture().sync();
         } finally {
